@@ -1,0 +1,94 @@
+.swiper-container {
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  list-style: none;
+  padding: 0;
+  z-index: 1;
+  .swiper-container__full {
+    width: 100%;
+    padding-bottom: 32px;
+  }
+  .swiper-container-horizontal {
+  }
+  .swiper-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-transition-property: -webkit-transform;
+    transition-property: -webkit-transform;
+    -o-transition-property: transform;
+    transition-property: transform;
+    transition-property: transform, -webkit-transform;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+  }
+  .swiper-slide {
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    -webkit-transition-property: -webkit-transform;
+    transition-property: -webkit-transform;
+    -o-transition-property: transform;
+    transition-property: transform;
+    transition-property: transform, -webkit-transform;
+  }
+
+  .swiper-slide-duplicate {
+  }
+
+  .swiper-slide-prev {
+    pointer-events: auto;
+    visibility: visible;
+  }
+
+  .swiper-slide-active {
+    pointer-events: auto;
+    visibility: visible;
+  }
+
+  .swiper-slide-next {
+    pointer-events: auto;
+    visibility: visible;
+  }
+
+  .swiper-pagination {
+    position: absolute;
+    text-align: center;
+    -webkit-transition: 0.3s opacity;
+    -o-transition: 0.3s opacity;
+    transition: 0.3s opacity;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    z-index: 10;
+  }
+  .sp1 {
+  }
+  .swiper-pagination-clickable {
+    cursor: pointer;
+  }
+  .swiper-pagination-bullets {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+  .swiper-pagination-bullet {
+    height: 12px;
+    width: 12px;
+    border: 2px solid #ccc;
+    background-color: #fff;
+    opacity: 0.9;
+    margin: 0 5px;
+  }
+  .swiper-pagination-bullet-active {
+    background-color: #ccc;
+  }
+}
