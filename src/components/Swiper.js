@@ -1,109 +1,81 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import data from './swiper-data.js';
 import './Swiper.scss';
 
-const Swiper = () => {
+function Swiper() {
+  const [item, setItem] = useState(data);
+  const [index, setIndex] = useState(0);
+  useEffect(() => {
+    const lastIndex = item.length - 1;
+
+    if (index < 0) {
+      setIndex(lastIndex);
+    }
+    if (index > lastIndex) {
+      setIndex(0);
+    }
+  }, [index, item]);
+
+  useEffect(() => {
+    let swiper = setInterval(() => {
+      setIndex(index + 1);
+    }, 5000);
+    return () => clearInterval(swiper);
+  }, [index]);
+
   return (
-    <div>
-      <section className="swiper-container swiper-container__full swiper-container-horizontal">
+    <>
+      <section className="swiper-container">
         <div className="swiper-wrapper">
-          <div
-            className="swiper-slide swiper-slide-duplicate swiper-slide-prev"
-            data-swiper-slide-index="4"
-          >
-            <a
-              href="https://is.gd/5c652o"
-              target="_blank"
-              src="https://supertaste-shop.tvbs.com.tw/Files/home/image/Home_1840514000.jpg"
-            >
-              <img src="https://supertaste-shop.tvbs.com.tw/Files/home/image/Home_1840514000.jpg" />
-            </a>
-          </div>
-          <div
-            className="swiper-slide swiper-slide-active"
-            data-swiper-slide-index="0"
-          >
-            <a
-              href="https://bit.ly/3mFzCfl"
-              target="_blank"
-              src="https://supertaste-shop.tvbs.com.tw/Files/home/image/Home_1111491210.jpg"
-            >
-              <img src="https://supertaste-shop.tvbs.com.tw/Files/home/image/Home_1111491210.jpg" />
-            </a>
-          </div>
-          <div
-            className="swiper-slide swiper-slide-next"
-            data-swiper-slide-index="1"
-          >
-            <a
-              href="https://bit.ly/3F0FoR6"
-              target="_blank"
-              src="https://supertaste-shop.tvbs.com.tw/Files/home/image/Home_1026521160.jpg"
-            >
-              <img src="https://supertaste-shop.tvbs.com.tw/Files/home/image/Home_1026521160.jpg" />
-            </a>
-          </div>
-          <div className="swiper-slide" data-swiper-slide-index="2">
-            <a
-              href="https://supertaste-shop.tvbs.com.tw/Product/CategoryF/786"
-              target="_blank"
-              src="https://supertaste-shop.tvbs.com.tw/Files/home/image/Home_1026523041.jpg"
-            >
-              <img src="https://supertaste-shop.tvbs.com.tw/Files/home/image/Home_1026523041.jpg" />
-            </a>
-          </div>
-          <div className="swiper-slide" data-swiper-slide-index="3">
-            <a
-              href="https://bit.ly/3h6wQh4"
-              target="_blank"
-              src="https://supertaste-shop.tvbs.com.tw/Files/home/image/Home_1026524142.jpg"
-            >
-              <img src="https://supertaste-shop.tvbs.com.tw/Files/home/image/Home_1026524142.jpg" />
-            </a>
-          </div>
-          <div
-            className="swiper-slide swiper-slide-duplicate-prev"
-            data-swiper-slide-index="4"
-          >
-            <a
-              href="https://is.gd/5c652o"
-              target="_blank"
-              src="https://supertaste-shop.tvbs.com.tw/Files/home/image/Home_1840514000.jpg"
-            >
-              <img src="https://supertaste-shop.tvbs.com.tw/Files/home/image/Home_1840514000.jpg" />
-            </a>
-          </div>
-          <div
-            className="swiper-slide swiper-slide-duplicate swiper-slide-duplicate-active"
-            data-swiper-slide-index="0"
-          >
-            <a
-              href="https://bit.ly/3mFzCfl"
-              target="_blank"
-              src="https://supertaste-shop.tvbs.com.tw/Files/home/image/Home_1111491210.jpg"
-            >
-              <img src="https://supertaste-shop.tvbs.com.tw/Files/home/image/Home_1111491210.jpg" />
-            </a>
-          </div>
-        </div>
-        <div className="swiper-pagination sp1 swiper-pagination-clickable swiper-pagination-bullets">
-          <span className="swiper-pagination-bullet swiper-pagination-bullet-active"></span>
-          <span className="swiper-pagination-bullet"></span>
-          <span className="swiper-pagination-bullet"></span>
-          <span className="swiper-pagination-bullet"></span>
-          <span className="swiper-pagination-bullet"></span>
+          {item.map((items, itemsIndex) => {
+            const { id, remote_url, target, image } = items;
+            let position = 'nextSlide';
+
+            if (itemsIndex === index) {
+              position = 'activeSlide';
+            }
+
+            if (
+              itemsIndex === index - 1 ||
+              (index === 0 && itemsIndex === item.length - 1)
+            ) {
+              position = 'lastSlide';
+            }
+            return (
+              <article key={id} className={position}>
+                <a href={remote_url} target={target} src={image}>
+                  <img src={image} />
+                </a>
+              </article>
+            );
+          })}
         </div>
       </section>
-    </div>
+      <div className="swiper-pagination">
+        {item.map((items, itemsIndex) => {
+          let position = 'swiper-pagination-bullet';
+
+          if (itemsIndex === index) {
+            position =
+              'swiper-pagination-bullet swiper-pagination-bullet-active';
+          }
+
+          if (
+            itemsIndex === index - 1 ||
+            (index === 0 && itemsIndex === item.length - 1)
+          ) {
+            position = 'swiper-pagination-bullet';
+          }
+          return (
+            <span
+              className={position}
+              onClick={() => setIndex(itemsIndex)}
+            ></span>
+          );
+        })}
+      </div>
+    </>
   );
-};
+}
 
 export default Swiper;
-/*
-  <div
-    className="swiper-wrapper"
-    style="width: 1px; min-width: 100%; transform: translate3d(-2648px, 0px, 0px); transition-duration: 0ms;"
-  >
-*/
-/*
-style="width: 662px;"
-*/
